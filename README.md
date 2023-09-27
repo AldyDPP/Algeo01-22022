@@ -1,15 +1,13 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
-
-# Tugas Besar Aljabar Linear dan Geometri
-> Additional information or tagline
+# Tugas Besar Aljabar Linear dan Geometri (IF2123-01)
+> Tugas membuat kalkulator matriks yang bisa bekerja sesuai dengan spesifikasi yang diberikan
 Repository tugas besar Aljabar Linear dan Geometri kelompok "Aldy DPP" yang terdiri dari anggota:
 - Renaldy Arief Susanto 13522022
 - Abdul Rafi Radityo Hutomo 13522089
 
-## Installing / Getting started
+## Cara Menjalankan program
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+(A quick introduction of the minimal setup you need to get a hello world up &
+running.)
 
 ```shell
 packagemanager install awesome-project
@@ -17,7 +15,7 @@ awesome-project start
 awesome-project "Do something!"  # prints "Nah."
 ```
 
-Here you should say what actually happens when you execute the code above.
+(Here you should say what actually happens when you execute the code above.)
 
 ### Initial Configuration
 
