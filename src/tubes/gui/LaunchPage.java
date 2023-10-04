@@ -50,13 +50,13 @@ public class LaunchPage extends TemplateFrame implements ActionListener {
 
 		}
 		
-		OptionButtons[0].setText("Linier Equation");
+		OptionButtons[0].setText("Linear Equation");
 		OptionButtons[1].setText("Determinant");
 		OptionButtons[2].setText("Inverse Matrix");
 		OptionButtons[3].setText("Polinomial Interpolation");
 		OptionButtons[4].setText("Bicubic Spline Interpolation");
 		OptionButtons[5].setText("Multiple Linear Regression");
-		OptionButtons[6].setText("BONUS");
+		OptionButtons[6].setText("Image Enlarger");
 		OptionButtons[7].setText("Exit");
 		/*BG IMG*/
 		this.add(bg);

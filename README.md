@@ -19,7 +19,7 @@ Atau jika Anda meletakkan file di desktop:
 4. Jalankan aplikasi AldyDPP Matrix Calculator.
 5. Langkah 1-3 di atas adalah first time setup. Untuk kedepannya, Anda hanya perlu membuka aplikasi dengan mengklik executable file "AldyDPP Matrix Calculator.jar".
 6. Pada program, Anda dapat memasukkan input file .txt. Anda harus memasukkan file .txt dengan cara meng-input directory penuh dari file. Contoh: "C:\Users\Aldy\Desktop\example.txt".
-7. Pada program, Anda juga dapat menulis output program ke dalam sebuah file .txt. Beda dengan input, Anda **Hanya Perlu Memasukkan Nama File Saja.** Contoh : "example.txt". File .txt ini akan otomatis masuk ke dalam folder "res" yang seharusnya sudah terunduh bersamaan dengan program
+7. Pada program, Anda juga dapat menulis output program ke dalam sebuah file .txt. Beda dengan input, Anda **Hanya Perlu Memasukkan Nama File Saja.** Contoh : "example.txt". File .txt ini akan otomatis masuk ke dalam folder "res" yang seharusnya akan dibuat secara otomatis pada folder yang sama.
 
 
 ## Beberapa Hal Penting Tentang Program
