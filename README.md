@@ -1,132 +1,26 @@
 # Tugas Besar Aljabar Linear dan Geometri (IF2123-01)
 > Tugas membuat kalkulator matriks yang bisa bekerja sesuai dengan spesifikasi yang diberikan
+
 Repository tugas besar Aljabar Linear dan Geometri kelompok "Aldy DPP" yang terdiri dari anggota:
 - Renaldy Arief Susanto 13522022
 - Abdul Rafi Radityo Hutomo 13522089
 
-## Cara Menjalankan program
+## Tentang AldyDPP Matrix Calculator
+Program ini dibuat dalam rangka memenuhi ketentuan tugas besar 1 mata kuliah Aljabar Linear dan Geometri IF2123-01 ITB 2023/2024. Program berupa kalkulator matriks yang dapat digunakan untuk menyelesaikan beberapa persoalan seperti sistem persamaan linier dan interpolasi polinom. Untuk selengkapnya, Anda dapat membaca laporan yang terdapat pada folder "doc". Program berbasis GUI menggunakan Java Swing dan dicompile dalam bentuk executable JAR.
 
-(A quick introduction of the minimal setup you need to get a hello world up &
-running.)
-
-```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
-```
-
-(Here you should say what actually happens when you execute the code above.)
-
-### Initial Configuration
-
-Some projects require initial configuration (e.g. access tokens or keys, `npm i`).
-This is the section where you would document those requirements.
-
-## Developing
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
-```shell
-git clone https://github.com/your/awesome-project.git
-cd awesome-project/
-packagemanager install
-```
-
-And state what happens step-by-step.
-
-### Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here:
-
-```shell
-./configure
-make
-make install
-```
-
-Here again you should state what actually happens when the code above gets
-executed.
-
-### Deploying / Publishing
-
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
-```shell
-packagemanager deploy awesome-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
-
-## Features
-
-What's all the bells and whistles this project can perform?
-* What's the main functionality
-* You can also do another thing
-* If you get really randy, you can even do this
-
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
-#### Argument 1
-Type: `String`  
-Default: `'default value'`
-
-State what an argument does and how you can use it. If needed, you can provide
-an example below.
-
-Example:
-```bash
-awesome-project "Some other value"  # Prints "You're nailing this readme!"
-```
-
-#### Argument 2
-Type: `Number|Boolean`  
-Default: 100
-
-Copy-paste as many of these as you need.
-
-## Contributing
-
-When you publish something open source, one of the greatest motivations is that
-anyone can just jump in and start contributing to your project.
-
-These paragraphs are meant to welcome those kind souls to feel that they are
-needed. You should state something like:
-
-"If you'd like to contribute, please fork the repository and use a feature
-branch. Pull requests are warmly welcome."
-
-If there's anything else the developer needs to know (e.g. the code style
-guide), you should link it here. If there's a lot of things to take into
-consideration, it is common to separate this section to its own file called
-`CONTRIBUTING.md` (or similar). If so, you should say that it exists here.
-
-## Links
-
-Even though this information can be found inside the project on machine-readable
-format like in a .json file, it's good to include a summary of most useful
-links to humans using your project. You can include links like:
-
-- Project homepage: https://your.github.com/awesome-project/
-- Repository: https://github.com/your/awesome-project/
-- Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
-- Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/
+## Cara Menjalankan Program
+Berikut langkah-langkah menjalankan program di komputer Anda:
+1. Buka folder "src" pada repository ini.
+2. Unduh folder "Runnable Program"
+3. Pastikan folder "images" terunduh dan berada dalam folder yang sama dengan file .jar. Program tidak akan tampil dengan benar jika tidak ada folder images (Ini amat sangat penting sekali!).
+4. Jalankan aplikasi AldyDPP Matrix Calculator
+5. Pada program, Anda dapat memasukkan input file .txt. Anda harus memasukkan file .txt dengan cara meng-input directory penuh dari file. Contoh: "C:\Users\Aldy\Desktop\example.txt".
+6. Pada program, Anda juga dapat menulis output program ke dalam sebuah file .txt. Beda dengan input, Anda **Hanya Perlu Memasukkan Nama File Saja.** Contoh : "example.txt". File .txt ini akan otomatis masuk ke dalam folder "res" yang seharusnya sudah terunduh bersamaan dengan program
 
 
-## Licensing
-
-One really important part: Give your project a proper license. Here you should
-state what the license is and how to find the text version of the license.
-Something like:
-
-"The code in this project is licensed under MIT license."
+## Beberapa Hal Penting Tentang Program
+1. Program terdiri dari tombol-tombol menu yang berupa segi-empat putih. Silakan navigasi program menggunakan tombol-tombol ini.
+2. Anda dapat melakukan kalkulasi berkali-kali. Dalam kata lain, Anda **tidak** harus menutup dan membuka kembali program jika ingin melakukan sebuah kalkulasi lagi.
+3. Tampilan program mungkin akan bertabrakan/berantakan apabila Anda memasukkan angka yang sangat besar atau menggunakan jumlah variabel yang **absurd**, tetapi pada umumnya tampilan program seharusnya masih memadai untuk jumlah variabel kurang dari 15.
+4. Secara umum, Anda akan terlempar ke halaman error jika input Anda salah, yaitu diantaranya menginput karakter nonangka, menginput file path yang tidak ada, atau pun file txt tidak berukuran yang sesuai. Pastikan input Anda benar.
+5. Angka 0 tidak akan muncul pada output fungsi sistem persamaan linier, interpolasi polinomial, mau pun regresi linier. Jika terdapat angka "0.000", artinya nilai sebenarnya lebih kecil dari 0.01, tetapi lebih besar dari 0.
