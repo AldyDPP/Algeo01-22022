@@ -10,12 +10,16 @@ Program ini dibuat dalam rangka memenuhi ketentuan tugas besar 1 mata kuliah Alj
 
 ## Cara Menjalankan Program
 Berikut langkah-langkah menjalankan program di komputer Anda:
-1. Buka folder "src" pada repository ini.
-2. Unduh folder "Runnable Program"
-3. Pastikan folder "images" terunduh dan berada dalam folder yang sama dengan file .jar. Program tidak akan tampil dengan benar jika tidak ada folder images (Ini amat sangat penting sekali!).
-4. Jalankan aplikasi AldyDPP Matrix Calculator
-5. Pada program, Anda dapat memasukkan input file .txt. Anda harus memasukkan file .txt dengan cara meng-input directory penuh dari file. Contoh: "C:\Users\Aldy\Desktop\example.txt".
-6. Pada program, Anda juga dapat menulis output program ke dalam sebuah file .txt. Beda dengan input, Anda **Hanya Perlu Memasukkan Nama File Saja.** Contoh : "example.txt". File .txt ini akan otomatis masuk ke dalam folder "res" yang seharusnya sudah terunduh bersamaan dengan program
+1. Buka folder "src" pada repository ini. Kemudian buka folder "Runnable Program".
+2. Unduh file "AldyDPP Matrix Calculator.jar". Ini adalah aplikasi utamanya.
+3. SANGAT PENTING: unduh "images.zip" dan ***extract di folder yang sama dengan aplikasi***. Berikut contoh gambar setup yang sudah benar.
+![Alt text](image.png)
+Atau jika Anda meletakkan file di desktop:
+![Alt text](image-1.png)
+4. Jalankan aplikasi AldyDPP Matrix Calculator.
+5. Langkah 1-3 di atas adalah first time setup. Untuk kedepannya, Anda hanya perlu membuka aplikasi dengan mengklik executable file "AldyDPP Matrix Calculator.jar".
+6. Pada program, Anda dapat memasukkan input file .txt. Anda harus memasukkan file .txt dengan cara meng-input directory penuh dari file. Contoh: "C:\Users\Aldy\Desktop\example.txt".
+7. Pada program, Anda juga dapat menulis output program ke dalam sebuah file .txt. Beda dengan input, Anda **Hanya Perlu Memasukkan Nama File Saja.** Contoh : "example.txt". File .txt ini akan otomatis masuk ke dalam folder "res" yang seharusnya sudah terunduh bersamaan dengan program
 
 
 ## Beberapa Hal Penting Tentang Program
