@@ -19,6 +19,8 @@ public class Bonus{
     int originHeight;
     int originWidth;
     double[][] enlargedPicture;
+    double xBuffer = 0;
+    double yBuffer = 0;
 
     void loadPixelsToGrayscale(String path) throws IOException {
 
@@ -82,34 +84,55 @@ public class Bonus{
         A.initializeMatrix(16, 1);
         A = Matrix.multiplyMatrix(D, I);
         A = Matrix.multiplyMatrix(X.inverseByERO(), A);
-        for(int i = 0; i < zoomFactor; i++){
-            for(int j = 0; j < zoomFactor; j++){
+        int i = 0;
+        int j = 0;
+        double yBuffer_save = yBuffer;
+        double xBuffer_save = xBuffer;
+        while(Float.compare((float)xBuffer_save, (float)1) >= 0){
+            while(Float.compare((float)yBuffer_save, (float)1) >= 0){
                 double newX = i/(zoomFactor);
                 double newY = j/(zoomFactor);
-                enlargedPicture[(int)zoomFactor*x + i][(int)zoomFactor*y + j] = calculatePixel(A, newX, newY);
+                enlargedPicture[(int)(zoomFactor*x) + i]
+                [(int)(zoomFactor*y) + j]
+                = calculatePixel(A, newX, newY);
+                j++;
+                yBuffer_save -= 1;
             }
+            i++;
+            xBuffer_save -= 1;
+            yBuffer_save = yBuffer;
+            j = 0;
         }
     }
 
     void workOnAllPixels(){
         createResArray();
-        for(int x = 1; x < originWidth - 2; x++){
-            for(int y = 1; y < originHeight - 2; y++){
+        for(int x = 0; x < originWidth; x++){
+            yBuffer = 0;
+            xBuffer += zoomFactor;
+            for(int y = 0; y < originHeight; y++){
+                yBuffer += zoomFactor;
                 workOnFourPixels(x, y);
+                yBuffer -= Math.floor(yBuffer);
             }
+            xBuffer -= Math.floor(xBuffer);
         }
     }
 
     void writeImage(String Name) {
         String path = Name + ".png";
-        BufferedImage image = new BufferedImage((int)zoomFactor*originWidth, (int)zoomFactor*originHeight, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < (int)zoomFactor*originHeight; x++) {
-            for (int y = 0; y < (int)zoomFactor*originWidth; y++) {
-                int val = (int)enlargedPicture[y][x] << 16 | (int)enlargedPicture[y][x] << 8 | (int)enlargedPicture[y][x];
-                image.setRGB(y, x, val);
+        BufferedImage image = new BufferedImage((int)(zoomFactor*originWidth), 
+                                                (int)(zoomFactor*originHeight), 
+                                                BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < (int)(zoomFactor*originHeight); x++) {
+            for (int y = 0; y < (int)(zoomFactor*originWidth); y++) {
+                Color newVal = new Color(makeInRange((int)enlargedPicture[y][x]), 
+                makeInRange((int)enlargedPicture[y][x]), 
+                makeInRange((int)enlargedPicture[y][x]));
+                image.setRGB(y, x, newVal.getRGB());
             }
         }
-    
+        
         File ImageFile = new File(path);
         try {
             ImageIO.write(image, "png", ImageFile);
@@ -128,14 +151,26 @@ public class Bonus{
         writeImage(resPath);
     }
 
+    protected double makeInRange(double col){
+        double res = Math.min(col, (double)255);
+        res = Math.max(res, (double)0);
+        return res;
+    }
+
+    protected int makeInRange(int col){
+        int res = Math.min(col, 255);
+        res = Math.max(res, 0);
+        return res;
+    }
+
     protected void EdgeHandling(){
-        for(int i = 1; i < originHeight; i++){
+        for(int i = 0; i < originHeight; i++){
             overEdgeWidthValue(originWidth, i);
             overEdgeWidthValue(originWidth + 1, i);
             underEdgeWidthValue(originWidth + 2, i);
         }
 
-        for(int i = 1; i < originWidth; i++){
+        for(int i = 0; i < originWidth; i++){
             overEdgeHeightValue(i, originHeight);
             overEdgeHeightValue(i, originHeight + 1);
             underEdgeHeightValue(i, originHeight + 2);
@@ -148,27 +183,27 @@ public class Bonus{
     }
 
     protected void overEdgeWidthValue(int x, int y){
-        originPicture.contents[x][y] = 3*originPicture.contents[x - 1][y] 
+        originPicture.contents[x][y] = makeInRange(3*originPicture.contents[x - 1][y] 
                - 3*originPicture.contents[x - 2][y] 
-               + originPicture.contents[x - 3][y];
+               + originPicture.contents[x - 3][y]);
     }
 
     protected void overEdgeHeightValue(int x, int y){
-        originPicture.contents[x][y] = 3*originPicture.contents[x][y - 1] 
+        originPicture.contents[x][y] = makeInRange(3*originPicture.contents[x][y - 1] 
                - 3*originPicture.contents[x][y - 2] 
-               + originPicture.contents[x][y - 3];
+               + originPicture.contents[x][y - 3]);
     }
 
     protected void underEdgeWidthValue(int x, int y){
-        originPicture.contents[x][y] = 3*originPicture.contents[0][y] 
+        originPicture.contents[x][y] = makeInRange(3*originPicture.contents[0][y] 
                - 3*originPicture.contents[1][y] 
-               + originPicture.contents[2][y];
+               + originPicture.contents[2][y]);
     }
 
     protected void underEdgeHeightValue(int x, int y){
-        originPicture.contents[x][y] = 3*originPicture.contents[x][0] 
+        originPicture.contents[x][y] = makeInRange(3*originPicture.contents[x][0] 
                - 3*originPicture.contents[x][1] 
-               + originPicture.contents[x][2];
+               + originPicture.contents[x][2]);
     }
 
     protected Matrix getIMatrix(int x, int y){
@@ -197,11 +232,5 @@ public class Bonus{
         }
         return res;
     }
-
-    public static void main(String[] args) throws IOException{
-        Bonus b = new Bonus();
-        b.getImageAndZoom("tubes/flabellina.jpg", 2, "altap");
-    }
-
     
 }

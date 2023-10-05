@@ -32,8 +32,8 @@ public class Determinant4 extends Determinant1 implements ActionListener {
 			this.add(wow);
 			
 			JLabel misaka = new JLabel();
-			String parent = "algeo/tubes/images/";
-			ImageIcon misakaimg = new ImageIcon("algeo/tubes/images/misaka.png");
+			String parent = "images\\";
+			ImageIcon misakaimg = new ImageIcon(parent + "misaka.png");
 			
 			misaka.setIcon(misakaimg);
 			misaka.setBounds(190,200,400,400);
