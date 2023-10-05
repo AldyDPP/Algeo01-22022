@@ -125,6 +125,7 @@ public class Matrix {
     }
 
     void scalarMultiply(double x){
+        // Multiply self (scalar) by factor x
         for(int i = 0; i < rowCount; i++){
             for(int j = 0; j < columnCount; j++){
                 contents[i][j] *= x;
@@ -169,6 +170,7 @@ public class Matrix {
     }
 
     protected double[][] contentsClone(){
+        // deep clone of self.contents
         double[][] res = contents.clone();
         for(int i = 0; i < rowCount; i++){
             res[i] = contents[i].clone();
@@ -177,26 +179,10 @@ public class Matrix {
     }
 
     protected Matrix clone(){
+        // deep clone of self
         Matrix res = new Matrix();
         res.initializeMatrix(rowCount, columnCount);
         res.contents = contentsClone();
         return res;
-    }
-
-    public static void main(String[] args) throws IOException{
-        Matrix M;
-        M = new Matrix();
-        // Scanner sc = new Scanner(System.in);
-        // A = new Matrix();
-        // B = new Matrix();
-        // A.keyboardInputMatrix(sc);
-        // System.out.println();
-        // B.keyboardInputMatrix(sc);
-        // Matrix C = Matrix.multiplyMatrix(A, B);
-        // System.out.println();
-        // C.printMatrix();
-        // sc.close();
-        M.txtInputMatrix("./tubes/matrix/src/test.txt");
-
     }
 }

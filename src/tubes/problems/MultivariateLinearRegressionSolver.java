@@ -21,6 +21,8 @@ public class MultivariateLinearRegressionSolver {
     }
 
     public void keyboardInput(Scanner sc){
+    // Input Multivariate Linear Regression problem
+    // from terminal
 
         System.out.print("Input number of regressor: ");
         n = sc.nextInt() + 1;
@@ -41,6 +43,8 @@ public class MultivariateLinearRegressionSolver {
     }
 
     public void textInput(String path) throws IOException{
+    // Input Multivariate Linear Regression Problem
+    // from txt file
         xyMatrix.txtInputMatrix(path);
         n = xyMatrix.columnCount - 1; // n + 1
         m = xyMatrix.rowCount - 1;
@@ -56,6 +60,7 @@ public class MultivariateLinearRegressionSolver {
     }
 
     SquareMatrix getXMatrix(){
+    // getXMatrix defined from the OLS Equation
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(m, n + 1);
         for(int i = 0; i < m; i++){
@@ -70,10 +75,13 @@ public class MultivariateLinearRegressionSolver {
     }
 
     Matrix getYMatrix(){
+    // getYMatrix defined from the OLS Equation
         return xyMatrix.getMatrixB();
     }
 
     public void constructOLSMatrix(){
+    // Construct SPLMatrix containing SPL made from the OLS
+    // Equation and the given data
         SquareMatrix A = new SquareMatrix();
         Matrix B = new Matrix();
         A = getXMatrix();
@@ -84,11 +92,13 @@ public class MultivariateLinearRegressionSolver {
     }
 
     public SolutionType[] getBetaMatrix(){
+    // get Array of Solutions containing the coefficients of each regressor
         OLSEquationMatrix.reduceToEchelon();
         return OLSEquationMatrix.AugmentedSols();
     }
 
     String getYasString(){
+    // get the function in String form
         String res = "";
         SolutionType[] Beta = getBetaMatrix();
         res += "y = ";
@@ -113,27 +123,18 @@ public class MultivariateLinearRegressionSolver {
     }
 
     public void calculateAndPrint(){
+    // Solve the Multivariate Linear Regression Problem and print the
+    // result to terminal
         constructOLSMatrix();
         OLSEquationMatrix.reduceToEchelon();
         System.out.println(getYasString());
     }
 
     public String calculateAndGetString(){
+    // Solve the Multivariate Linear Regression Problem and return
+    // the result as String
         constructOLSMatrix();
         OLSEquationMatrix.reduceToEchelon();
         return getYasString();
-    }
-
-    public static void main(String[] args) throws IOException{
-        MultivariateLinearRegressionSolver MLGS = new MultivariateLinearRegressionSolver();
-        MLGS.textInput("./tubes/matrix/src/MLRS.txt");
-        MLGS.constructOLSMatrix();
-        // System.out.println("OLS Matrix : ");
-        // MLGS.OLSEquationMatrix.printMatrix();
-        MLGS.OLSEquationMatrix.reduceToEchelon();
-        // System.out.println("OLS Echelon Matrix : ");
-        // MLGS.OLSEquationMatrix.printMatrix();
-        // MLGS.printRes();
-        // MLGS.OLSEquationMatrix.printAugmentedSols();
     }
 }

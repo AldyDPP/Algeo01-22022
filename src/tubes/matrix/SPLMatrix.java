@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class SPLMatrix extends Matrix {
 
     public static SPLMatrix augmentABMatrix(Matrix A, Matrix B){
+    // return SPLMatrix resulting from augmenting Matrix A and Matrix B
         SPLMatrix res = new SPLMatrix();
         res.initializeMatrix(A.rowCount, A.columnCount + 1);
         for(int i = 0; i < A.rowCount; i++){
@@ -95,7 +96,8 @@ public class SPLMatrix extends Matrix {
     }
 
     public SolutionType[] AugmentedSols(){
-
+    // return array of SolutionType representing solution to the SPL 
+    // with initial state self is already at echelon or reduced echelon form
         clearNegativeZero();
         char[] params = "pqrstuvwyzabcdefghijklmno".toCharArray();
         int charIdx = 0;
@@ -130,6 +132,7 @@ public class SPLMatrix extends Matrix {
     }
 
     String getAugmentedSols(){
+    // return solutions written in String
         if (hasNoSols()) {return "The System of Linear Equations has no solutions";}
         SolutionType[] sols = AugmentedSols();
         String res = "";
@@ -140,35 +143,42 @@ public class SPLMatrix extends Matrix {
     }
 
     public SolutionType[] solveFromScratch(){
+    // Solve SPL using gauss jordan method and return array of solutions
         reduceToEchelon();
         echelonToReducedEchelon();
         return AugmentedSols();
     }
 
     public String GaussSolve(){
+    // Solve SPL using gauss method and return solutions as String
         reduceToEchelon();
         return getAugmentedSols();
     }
 
     public String GaussJordanSolve(){
+    // Solve SPL using Gauss-Jordan method and return solutions as String
         reduceToEchelon();
         echelonToReducedEchelon();
         return getAugmentedSols();
     }
 
     public String inverseMatrixSolve(){
+    // Solve SPL using inverse matrix and return solutions as String
         SquareMatrix A = getMatrixA();
         Matrix B = getMatrixB();
         return A.getSolsByInverse(B);
     }
 
     public String cramerSolve(){
+    // Solve SPL using cramer's rule and return solutions as String
         SquareMatrix A = getMatrixA();
         Matrix B = getMatrixB();
         return A.getSolsByCramer(B);
     }
 
     public SquareMatrix getMatrixA(){
+    // get matrix A from self, with A Matrix being self
+    // without the last column
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(rowCount, columnCount - 1);
         for(int i = 0; i < rowCount; i++){
@@ -180,6 +190,9 @@ public class SPLMatrix extends Matrix {
     }
 
     public Matrix getMatrixB(){
+    // get matrix B from self, with B matrix being
+    // a column matrix containing elements from
+    // the last column of self
         Matrix res = new Matrix();
         res.initializeMatrix(rowCount, 1);
         for(int i = 0; i < rowCount; i++){
@@ -189,20 +202,21 @@ public class SPLMatrix extends Matrix {
     }
 
     protected void initializeSolArray(SolutionType[] res){
+    // Initialize array of solutions with SolutionType
         for(int i = 0; i < columnCount - 1; i++){
             res[i] = new SolutionType(columnCount - 1);
         }
     }
 
     protected void switchEl(int row1, int row2, int column1, int column2){
-        // Switch element at [row1][column1] and element at [row2][column2]
+    // Switch element at [row1][column1] and element at [row2][column2]
         double temp = contents[row1][column1];
         contents[row1][column1] = contents[row2][column2];
         contents[row2][column2] = temp;
     }
 
     protected int nonZeroEl(int columnNum, int topRow){
-        // Find a row under topRow such that the element at columnNum column is non=zero
+    // Find a row under topRow such that the element at columnNum column is non=zero
         for(int i = topRow; i < rowCount; i++){
             if (contents[i][columnNum] != 0) {return i;}
         }
@@ -210,7 +224,7 @@ public class SPLMatrix extends Matrix {
     }
 
     protected void zeroUnder(int columnNum, int topRow){
-        // Uses Elementary Row Operation to zero out every element under topRow on a given column
+    // Uses Elementary Row Operation to zero out every element under topRow on a given column
         for(int i = topRow + 1; i < rowCount; i++){
                 double factor = -(contents[i][columnNum]);
                 addERO(i, topRow, factor);
@@ -235,6 +249,7 @@ public class SPLMatrix extends Matrix {
     }
 
     protected boolean hasNoSols(){
+    // Give predicate whether an SPL has no solutions
         boolean res = false;
         for(int i = 0; i < rowCount; i++){
             boolean zeroCoefficients = true;
@@ -248,14 +263,4 @@ public class SPLMatrix extends Matrix {
         }
         return res;
     }
-    
-    // public static void main(String[] args) throws IOException{
-    //     SPLMatrix M;
-    //     M = new SPLMatrix();
-    //     M.txtInputMatrix("SPL.txt");
-    //     M.reduceToEchelon();
-    //     M.echelonToReducedEchelon();
-    //     M.printMatrix();
-    //     M.getAugmentedSols();
-    // }
 }

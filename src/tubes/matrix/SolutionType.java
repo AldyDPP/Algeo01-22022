@@ -20,18 +20,22 @@ public class SolutionType {
     }
 
     public void setRealPart(double realPart) {
+        // Setter for RealPart attribute
         this.realPart = realPart;
     }
 
     public double getRealPart() {
+        // Getter for RealPart attribute
         return realPart;
     }
 
     public HashMap<Character, Double> getParametricParts() {
+        // Getter for ParametricParts attribute
         return parametricParts;
     }
 
     public String toString(){
+        // Return self as a String
         String res = "";
         if (realPart != 0){
             res += String.format("%.2f ", realPart);
@@ -49,6 +53,7 @@ public class SolutionType {
     }
 
     static SolutionType add(SolutionType x1, SolutionType x2, double factor){
+        // return SolutionType resulting from x1 + x2*factor
         SolutionType res = new SolutionType(x1.length);
         res.setRealPart(x1.realPart + factor*x2.realPart);
 
@@ -63,19 +68,4 @@ public class SolutionType {
 
         return res;
     }
-
-    public static void main(String[] args){
-        SolutionType x1 = new SolutionType(3);
-        SolutionType x2 = new SolutionType(3);
-        x1.realPart = 4;
-        x1.parametricParts.put('r', (double)7.75);
-        x2.realPart = -7;
-        x2.parametricParts.put('r', (double)0.75);
-        x2.parametricParts.put('p', (double)-2.5);
-        SolutionType x3 = add(x1, x2, (double)-1.5);
-        System.out.println(x1.toString());
-        System.out.println(x2.toString());
-        System.out.println(x3.toString());
-    }
-
 }

@@ -22,6 +22,8 @@ public class BicubicSpline {
     }
 
     public void createXMatrix(){
+    // Create X Matrix defined by the Bicubic Spline Interpolation
+    // equation
         X = new SquareMatrix();
         X.initializeMatrix(16, 16);
         for(int y = 0; y < 2; y++){
@@ -40,6 +42,7 @@ public class BicubicSpline {
     }
 
     public void keyboardInput(Scanner sc){
+    // Input values for the bicubic spline problem from the terminal
         Y = new Matrix();
         Y.initializeMatrix(16, 1);
         for(int i = 0; i < 16; i++){
@@ -51,6 +54,7 @@ public class BicubicSpline {
     }
 
     public void textInput(String path) throws IOException{
+    // Input values for the bicubic spline problem from txt file
         SquareMatrix temp = new SquareMatrix();
         temp.txtInputMatrix(path);
         temp.printMatrix();
@@ -67,12 +71,16 @@ public class BicubicSpline {
     }
 
     public void evaluateA(){
+    // Evaluate matrix of coefficients a
+    // using inverse matrix method
         a = new Matrix();
         a.initializeMatrix(16, 1);
         a = Matrix.multiplyMatrix(X.inverseByERO(), Y);
     }
 
     public double calculateVal(double x, double y){
+    // Calculate the approximated value at point (x, y)
+    // from the obtained a coefficients
         double res = 0.00;
         for(int j = 0; j < 4; j++){
             for(int i = 0; i < 4; i++){
@@ -83,6 +91,7 @@ public class BicubicSpline {
     }
 
     public void splineAndPrint(){
+    // Solve the bicubic spline problem and print the result to the terminal
         createXMatrix();
         evaluateA();
         System.out.println(String.format(
@@ -91,6 +100,7 @@ public class BicubicSpline {
     }
 
     public String splineAndReturnString(){
+    // Solve the bicubic spline problem and return the result as String
         createXMatrix();
         evaluateA();
         String res = String.format(

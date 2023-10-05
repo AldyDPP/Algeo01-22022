@@ -38,6 +38,7 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public SquareMatrix inverseByERO(){
+    // give Inverse Matrix obtained using elementary row operations manipulation
 
         double[][] oldContents = contentsClone();
         matrixI = getIdentityMatrix();
@@ -56,11 +57,15 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public Matrix solsByInverse(Matrix B){
+    // get Matrix X solution of the equation
+    // (self)X = B
         Matrix x = multiplyMatrix(inverseByERO(), B);
         return x;
     }
 
     public String getSolsByInverse(Matrix B){
+    // get solution of the equation (self)X = B
+    // in String form
         if (hasZeroRow()) {return "The Matrix Is Not Invertible";}
         Matrix x = solsByInverse(B);
         String res = "";
@@ -71,6 +76,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public double determinantByERO(){
+    // get determinant of self by using elementary row
+    // operation manipulation
         determinant = 1.00;
         double[][] oldContents = contentsClone();
 
@@ -83,6 +90,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public double determinantByCofactor(){
+    // get determinant of self by using cofactor expansion
+    // along the first row
         if (rowCount == 1) {return contents[0][0];}
         double res = 0.00;
         for(int i = 0; i < rowCount; i++){
@@ -92,6 +101,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public SquareMatrix inverseByCofactor(){
+    // get inverse of self by using adjoint cofactor
+    // matrix
         SquareMatrix res = new SquareMatrix();
         res = adjointCofactor();
         res.scalarMultiply(1/determinantByCofactor());
@@ -99,6 +110,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public Matrix solsByCramer(Matrix B){
+    // get X matrix, solution of the equation (self)X = B
+    // using cramer's rule
         Matrix res = new Matrix();
         determinant = determinantByCofactor();
         res.initializeMatrix(rowCount, 1);
@@ -113,6 +126,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public String getSolsByCramer(Matrix B){
+    // get solution of the equation (self)X = B
+    // using cramer's rule in String form
         Matrix x = solsByCramer(B);
         String res = "";
         for(int i = 0; i < rowCount; i++){
@@ -122,7 +137,7 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public SquareMatrix transposeOf(){
-        // return transposed matrix
+    // return transposed matrix
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(columnCount, rowCount);
         for(int i = 0; i < rowCount; i++){
@@ -134,6 +149,7 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     public void checkInvertibility(){
+    // Check invertibility of self
         double[][] oldContents = contentsClone();
 
         reduceToEchelon();
@@ -143,6 +159,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     protected SPLMatrix getIdentityMatrix(){
+    // get Identity matrix with the same
+    // size as self
         SPLMatrix res = new SPLMatrix();
         res.initializeMatrix(rowCount, columnCount);
         for(int i = 0; i < rowCount; i++){
@@ -154,6 +172,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     protected SquareMatrix subMatrix(int rowNum, int colNum){
+    // Get subMatrix M(rowNum)(colNum) containing all elements of self,
+    // aij with a != rowNum and b != colNum
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(rowCount - 1, columnCount - 1);
         for(int i = 0; i < rowCount; i++){
@@ -167,6 +187,7 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     protected SquareMatrix adjointCofactor(){
+    // get adjoint Cofactor Matrix of self
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(rowCount, columnCount);
         for(int i = 0; i < rowCount; i++){
@@ -179,6 +200,7 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     protected SquareMatrix clone(){
+    // get deep clone of self
         SquareMatrix res = new SquareMatrix();
         res.initializeMatrix(rowCount, columnCount);
         res.contents = contentsClone();
@@ -186,6 +208,8 @@ public class SquareMatrix extends SPLMatrix {
     }
 
     protected boolean hasZeroRow(){
+    // give predicate on whether self
+    // has a zero row
         boolean res = false;
         for (int i = 0; i < rowCount; i++){
             if (isZeroRow(i)) {res = true;}

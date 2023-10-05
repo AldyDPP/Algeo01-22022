@@ -23,6 +23,8 @@ public class BonusRGB{
     double yBuffer = 0;
 
     void loadPixelsToGrayscale(String path) throws IOException {
+    // Load colored Pixels from an image at the given path to the
+    // OriginPicture Matrix
 
         File file = new File(path);
         BufferedImage image = ImageIO.read(file);
@@ -43,6 +45,8 @@ public class BonusRGB{
     }
 
     void constructDMatrix(){
+    // Construct the D Matrix from the directional derivatives
+    // approximation equation
         D = new SquareMatrix();
         D.initializeMatrix(16, 16);
         for(int y = 0; y < 2; y++){
@@ -61,6 +65,8 @@ public class BonusRGB{
     }
 
     void createXMatrix(){
+    // construct the X matrix given by the
+    // bicubic spline equation
         X = new SquareMatrix();
         X.initializeMatrix(16, 16);
         for(int y = 0; y < 2; y++){
@@ -78,10 +84,14 @@ public class BonusRGB{
         }
     }
     void createResArray(){
+    // Create resulting matrix
         enlargedPicture = new double[(int)Math.floor(originWidth*zoomFactor)][(int)Math.floor(originHeight*zoomFactor)][3];
     }
 
     void workOnFourPixels(int x, int y, int k){
+    // Calculate the function approximating values of pixels inside the square
+    // created by four pixels with (x, y) as the top left pixel and then
+    // assign the approximated color value to the resulting matrix of rgb values
         Matrix I = getIMatrix(x, y, k);
         Matrix A = new Matrix();
         A.initializeMatrix(16, 1);
@@ -110,6 +120,8 @@ public class BonusRGB{
     }
 
     void workOnAllPixels(){
+    // Iterate over each pixels and work on four pixels
+    // with the iterated pixel as the top left pixel
         createResArray();
         for(int x = 0; x < originWidth; x++){
             int sum = 0;
@@ -128,6 +140,7 @@ public class BonusRGB{
     }
 
     void writeImage(String Name) {
+    // Convert the calculated matrix of rgb values into a png image
         String path = Name + ".png";
         BufferedImage image = new BufferedImage((int)(zoomFactor*originWidth), 
                                                 (int)(zoomFactor*originHeight), 
@@ -150,6 +163,7 @@ public class BonusRGB{
     }
 
     public void getImageAndZoom(String path, double factor, String resPath) throws IOException{
+    // Enlarge the image at path by factor and output the result into resPath
         zoomFactor = factor;
         loadPixelsToGrayscale(path);
         constructDMatrix();
@@ -160,18 +174,21 @@ public class BonusRGB{
     }
 
     protected int makeInRange(int col){
+    // Make an int rgb value stay in range of [0..255]
         int res = Math.min(col, 255);
         res = Math.max(res, 0);
         return res;
     }
 
     protected double makeInRange(double col){
+    // Make a double rgb value stay in range of [0..255]
         double res = Math.min(col, (double)255);
         res = Math.max(res, (double)0);
         return res;
     }
 
     protected void EdgeHandling(){
+    // Handle approximation at the edge of the screen
         for(int i = 0; i < originHeight; i++){
             for(int j = 0; j < 3; j++){
                 overEdgeWidthValue(originWidth, i, j);
@@ -197,30 +214,35 @@ public class BonusRGB{
     }
 
     protected void overEdgeWidthValue(int x, int y, int i){
+    // handle approximation at the rightmost edge of the screen
         originPicture[x][y][i] = makeInRange(3*originPicture[x - 1][y][i] 
                - 3*originPicture[x - 2][y][i] 
                + originPicture[x - 3][y][i]);
     }
 
     protected void overEdgeHeightValue(int x, int y, int i){
+    // handle approximation at the bottommost edge of the screen
         originPicture[x][y][i] = makeInRange(3*originPicture[x][y - 1][i] 
                - 3*originPicture[x][y - 2][i] 
                + originPicture[x][y - 3][i]);
     }
 
     protected void underEdgeWidthValue(int x, int y, int i){
+    // handle approximation at the leftmost edge of the screen
         originPicture[x][y][i] = makeInRange(3*originPicture[0][y][i] 
                - 3*originPicture[1][y][i] 
                + originPicture[2][y][i]);
     }
 
     protected void underEdgeHeightValue(int x, int y, int i){
+    // handle approximation at the topmost edge of the screen
         originPicture[x][y][i] = makeInRange(3*originPicture[x][0][i] 
                - 3*originPicture[x][1][i] 
                + originPicture[x][2][i]);
     }
 
     protected Matrix getIMatrix(int x, int y, int k){
+    // get matrix of values from the pixels of the image
         Matrix I = new Matrix();
         I.initializeMatrix(16, 1);
         for(int i = -1; i < 3; i++){
@@ -234,10 +256,12 @@ public class BonusRGB{
     }
 
     protected int xyToIDX(int x, int y){
+    // formula to conver x, y value into index for the matrix
         return ((x + 1) + 4*(y + 1));
     }
 
     protected double calculatePixel(Matrix A, double x, double y){
+    // Calculate value of pixel given A matrix and the point(x, y)
         double res = 0;
         for(int j = 0; j < 4; j++){
             for(int i = 0; i < 4; i++){

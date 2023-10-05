@@ -21,6 +21,7 @@ public class InterpolationSolver {
     }
 
     public void keyboardInput(Scanner sc){
+    // Get Interpolation problem from terminal
         int n;
 
         System.out.print("Number of points : ");
@@ -38,6 +39,7 @@ public class InterpolationSolver {
     }
     
     public void textInput(String path) throws IOException{
+    // Get Interpolation problem from text file
         String data = "";
         data = new String(
             Files.readAllBytes(Paths.get(path)));
@@ -59,6 +61,7 @@ public class InterpolationSolver {
     }
 
     public void generateMatrix() {
+    // Generate SPL Matrix from given values
         coefficientSPL = new SPLMatrix();
         coefficientSPL.initializeMatrix(degree + 1, degree + 2);
         for(int i = 0; i < degree + 1; i++){
@@ -73,11 +76,15 @@ public class InterpolationSolver {
     }
 
     public void generateSolution(){
+    // Generate coefficient of the polynomial from
+    // the Matrix
         coefficients = new SolutionType[degree + 1];
         coefficients = coefficientSPL.solveFromScratch();
     }
 
     public double approximateValue(double x){
+    // Approximate the value of the interpolated polynomial
+    // at x
         double res = 0.00;
         for(int i = 0; i < degree + 1; i++){
             res += coefficients[i].getRealPart()*Math.pow(x, i); 
@@ -86,6 +93,7 @@ public class InterpolationSolver {
     }
 
     String getSolsString(){
+    // Get interpolated polynomial in String form
         String res = "f(x) = ";
         for(int i = degree; i >= 0; i--){
             if (i == degree){
@@ -118,12 +126,15 @@ public class InterpolationSolver {
     }
 
     public void solveAndPrint(){
+    // Solve interpolation problem and print the result
         generateMatrix();
         generateSolution();
         System.out.print(getSolsString());
     }
 
     public String solveAndReturnString(){
+    // Solve interpolation problem and return the result
+    // as String
         generateMatrix();
         generateSolution();
         return getSolsString();
